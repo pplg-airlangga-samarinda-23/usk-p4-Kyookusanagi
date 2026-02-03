@@ -8,7 +8,7 @@ $message_type = "";
 if(isset($_POST['daftar'])){
     $u = $_POST['username'];
     $p = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $r = $_POST['role'];
+    $r = 'anggota'; // Otomatis anggota
 
     // Cek apakah username sudah ada
     $cek = mysqli_query($koneksi, "SELECT * FROM users WHERE username='$u'");
@@ -17,8 +17,9 @@ if(isset($_POST['daftar'])){
         $message_type = "error";
     } else {
         mysqli_query($koneksi,"INSERT INTO users VALUES(NULL,'$u','$p','$r')");
-        $message = "Akun berhasil dibuat! Silakan login.";
-        $message_type = "success";
+        $_SESSION['success'] = "Akun berhasil dibuat! Silakan login.";
+        header("Location: login.php");
+        exit;
     }
 }
 ?>
@@ -42,12 +43,6 @@ if(isset($_POST['daftar'])){
 
             <label for="password">Password</label>
             <input id="password" type="password" name="password" required>
-
-            <label for="role">Role</label>
-            <select name="role" id="role">
-                <option value="admin">Admin</option>
-                <option value="anggota">Anggota</option>
-            </select>
 
             <button name="daftar">Daftar</button>
         </form>

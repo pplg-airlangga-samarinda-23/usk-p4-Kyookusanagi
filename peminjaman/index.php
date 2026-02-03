@@ -43,8 +43,10 @@ JOIN buku b ON p.id_buku = b.id
                 <td><?php echo $p['tgl_kembali'] ?? '-'; ?></td>
                 <td><?php echo $p['tgl_kembali'] ? 'Dikembalikan' : 'Dipinjam'; ?></td>
                 <td>
+                    <a href="edit.php?id=<?php echo $p['id']; ?>">Edit</a> |
+                    <a href="delete.php?id=<?php echo $p['id']; ?>" onclick="return confirm('Yakin hapus peminjaman ini?')">Hapus</a>
                     <?php if(!$p['tgl_kembali']){ ?>
-                        <a href="kembalikan.php?id=<?php echo $p['id']; ?>">Kembalikan</a>
+                        | <a href="kembalikan.php?id=<?php echo $p['id']; ?>">Kembalikan</a>
                     <?php } ?>
                 </td>
             </tr>
